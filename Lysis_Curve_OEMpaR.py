@@ -10,7 +10,7 @@ deg = 30
 rept = 1
 csv_filename = f'{deg}deg_OEMpaR_{rept}_repeat'
 groups_filename = 'group3'
-output_folder = 'lysis_curve_OEMpaR/v2'
+output_folder = 'lysis_curve_OEMpaR/v3'
 
 df = analyse_file(
     opticalDense_path = f'./csv/{csv_filename}.csv',

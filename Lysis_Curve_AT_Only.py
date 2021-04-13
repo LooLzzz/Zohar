@@ -6,10 +6,11 @@ from analysis import analyse_file, gen_pair_graphs
 ## GROUP 2 ##
 #############
 
-deg = 37
+# deg = 37
+deg = 30
 csv_filename = f'{deg}deg_with_AT'
 groups_filename = 'group2'
-output_folder = 'lysis_curve_at_only/v2'
+output_folder = 'lysis_curve_at_only/v3'
 
 df = analyse_file(
     opticalDense_path = f'./csv/{csv_filename}.csv',
