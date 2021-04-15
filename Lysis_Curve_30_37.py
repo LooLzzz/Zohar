@@ -8,10 +8,10 @@ from analysis import analyse_file, gen_pair_graphs
 
 # deg = 30
 deg = 37
-rept = 1
+rept = 3
 csv_filename = f'{deg}deg_{rept}_repeat'
 groups_filename = 'group1'
-output_folder = 'lysis_curve_3_repeats/v3'
+output_folder = 'lysis_curve_3_repeats/v4'
 
 df = analyse_file(
     opticalDense_path = f'./csv/{csv_filename}.csv',
@@ -24,54 +24,33 @@ figs = []
 ## WT ##
 title = f'Lysis Curve - {deg}°C\nWT'
 cols = [ c for c in df.columns if 'WT' in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
 figs += [fig]
 ## WT ##
 
 wt_cols = [ c for c in df.columns if 'WT' in c and 'OE' not in c ]
 wt_oe_cols = [ c for c in df.columns if 'WT' in c and 'OE' in c ]
 
-## CURED not OE ##
-title = f'Lysis Curve - {deg}°C\nCURED'
-cols = wt_cols + [ c for c in df.columns if ('CURED' in c and 'OE' not in c) and 'Zaga' not in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
+## Cured ##
+title = f'Lysis Curve - {deg}°C\nCured'
+cols = wt_oe_cols + [ c for c in df.columns if 'Cured' in c and 'Zaga' not in c ]
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
 figs += [fig]
-## CURED not OE ##
+## Cured ##
 
-## CURED OE ##
-title = f'Lysis Curve - {deg}°C\nCURED OE LMRG_01556'
-cols = wt_oe_cols + [ c for c in df.columns if ('CURED' in c and 'OE' in c) and 'Zaga' not in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
+## zaga ##
+title = f'Lysis Curve - {deg}°C\nCured ΔZaga'
+cols = wt_oe_cols + [ c for c in df.columns if 'Zaga' in c ]
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
 figs += [fig]
-## CURED OE ##
+## zaga ##
 
-## zaga not OE ##
-title = f'Lysis Curve - {deg}°C\nCURED ΔZaga'
-cols = wt_cols + [ c for c in df.columns if 'Zaga' in c and 'OE' not in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
-figs += [fig]
-## zaga not OE ##
-
-## zaga OE ##
-title = f'Lysis Curve - {deg}°C\nCURED ΔZaga OE LMRG_01556'
-cols = wt_oe_cols + [ c for c in df.columns if 'Zaga' in c and 'OE' in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
-figs += [fig]
-## zaga OE ##
-
-## struc not OE ##
+## struc ##
 title = f'Lysis Curve - {deg}°C\nΔStruc'
-cols = wt_cols + [ c for c in df.columns if 'Struc' in c and 'OE' not in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
+cols = wt_oe_cols + [ c for c in df.columns if 'Struc' in c ]
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
 figs += [fig]
-## struc not OE ##
-
-## struc OE ##
-title = f'Lysis Curve - {deg}°C\nΔStruc OE LMRG_01556'
-cols = wt_oe_cols + [ c for c in df.columns if 'Struc' in c and 'OE' in c ]
-fig,axs = gen_pair_graphs(df, cols, title)
-figs += [fig]
-## struc OE ##
+## struc ##
 
 
 # save

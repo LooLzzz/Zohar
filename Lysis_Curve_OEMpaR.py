@@ -10,7 +10,7 @@ deg = 30
 rept = 1
 csv_filename = f'{deg}deg_OEMpaR_{rept}_repeat'
 groups_filename = 'group3'
-output_folder = 'lysis_curve_OEMpaR/v3'
+output_folder = 'lysis_curve_OEMpaR/v4'
 
 df = analyse_file(
     opticalDense_path = f'./csv/{csv_filename}.csv',
@@ -29,26 +29,26 @@ fig,axs = gen_pair_graphs(df, wt_cols, title)
 figs += [fig]
 ## WT ##
 
-## CURED ##
-title = f'Lysis Curve - {deg}°C\nCURED'
-cols = wt_cols + [ c for c in df.columns if 'CURED' in c and 'Struc' not in c ]
+## Cured ##
+title = f'Lysis Curve - {deg}°C\nCured'
+cols = wt_cols + [ c for c in df.columns if 'Cured' in c and 'Struc' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title)
 figs += [fig]
-## CURED ##
+## Cured ##
 
 ## ΔStruc ##
 title = f'Lysis Curve - {deg}°C\nΔStruc Compared to Δ1555-56'
-cols = wt_cols + [ c for c in df.columns if ('Struc' in c or 'd_1555-56' in c) and 'CURED' not in c ]
+cols = wt_cols + [ c for c in df.columns if ('Struc' in c or 'd_1555-56' in c) and 'Cured' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title)
 figs += [fig]
 ## ΔStruc ##
 
-## CURED ΔStruc ##
-title = f'Lysis Curve - {deg}°C\nCURED ΔStruc'
-cols = wt_cols + [ c for c in df.columns if 'CURED d_Struc' in c ]
+## Cured ΔStruc ##
+title = f'Lysis Curve - {deg}°C\nCured ΔStruc'
+cols = wt_cols + [ c for c in df.columns if 'Cured d_Struc' in c ]
 fig,axs = gen_pair_graphs(df, cols, title)
 figs += [fig]
-## CURED ΔStruc ##
+## Cured ΔStruc ##
 
 
 

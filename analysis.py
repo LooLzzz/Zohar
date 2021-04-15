@@ -71,8 +71,8 @@ def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=Tr
 
 
 
-def gen_pair_graphs(df, cols, title, xticks=None, figsize=(12,15), xlabel='Time (hours)', ylabel='Abs. OD600nm',
-                    line_kwargs={}, sns_theme_kwargs={}, sns_palette_kwargs={}, legend_kwargs={}, title_kwargs={}):
+def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_labels=None, xticks=None, figsize_h=((25,9.5)), figsize_v=(12,15), xlabel='Time (hours)', ylabel='Abs. OD600nm',
+                    alignment=1, line_kwargs={}, sns_theme_kwargs={}, sns_palette_kwargs={}, legend_kwargs={}, title_kwargs={}):
     def _update_dict(old, new):
         res = old.copy()
         res.update(new)
@@ -96,7 +96,7 @@ def gen_pair_graphs(df, cols, title, xticks=None, figsize=(12,15), xlabel='Time 
     )
     sns_palette_kwargs = _update_dict(
         {
-            # 'n_colors': 6,
+            'n_colors': 10,
             # 'palette': 'gray',
             # 'palette': 'binary',
             'palette': 'gray',
@@ -117,11 +117,14 @@ def gen_pair_graphs(df, cols, title, xticks=None, figsize=(12,15), xlabel='Time 
             'fontsize': 18,
             # 'loc': (1.02, 0),
             # 'loc': (-0.0675, 1.02),
-            'loc': (0, -0.32),
+            # 'loc': (0, -0.32),
             
             'ncol': 2,
             # 'loc': 'upper center',
-            # 'bbox_to_anchor': (0.5, -0.12),
+            'loc': 'upper left',
+            'bbox_to_anchor': (0, -0.11),
+            # 'loc': 'lower left',
+            # 'bbox_to_anchor': (0, -0.3),
             'fancybox': True,
             'shadow': True,
         },
@@ -138,14 +141,30 @@ def gen_pair_graphs(df, cols, title, xticks=None, figsize=(12,15), xlabel='Time 
     sns.set_theme(**sns_theme_kwargs)
     sns.set_palette(**sns_palette_kwargs)
     
-    markers = ['o','d','v','s','P','X','^','*']
+    markers = ['o','d','v','s','p','*','^','X']
     colors = sns.color_palette()
-    markevery_cases = [(0.1,0.1), (0.15,0.1), (0.125,0.15), (0.1,0.15)]
-
+    markevery_cases = [(0.1,0.1), (0.15,0.1), (0.125,0.15), (0.1,0.125)]
+    # markevery_cases = [(0.1,0.1)]
     mpl.rcParams['axes.prop_cycle'] = cycler(markevery=markevery_cases)
-    # (fig,axs) = plt.subplots(1, 2, figsize=(25,7))
-    (fig,axs) = plt.subplots(2, 1, figsize=figsize)
+    # mpl.rcParams["font.family"] = 'fantasy'
+    mpl.rcParams["font.family"] = 'TeX Gyre Heros'
+    
+    if alignment == 1:
+        # horizontal
+        (fig,axs) = plt.subplots(1, 2, figsize=figsize_h)
+        d = title_kwargs.copy()
+        d['fontsize'] += 5
+        plt.suptitle(title, **d)#, weight='bold')
+        title = ''
+        # if suptitle is None and '\n' in title:
+        #     suptitle,title = title.split('\n')
+    else:
+        # vertical
+        (fig,axs) = plt.subplots(2, 1, figsize=figsize_v)
     axs = axs.flatten().tolist()
+
+    # if suptitle is not None:
+    #     plt.suptitle(suptitle, **title_kwargs)
 
     cols_mc_plus = []
     cols_mc_minus = []
@@ -163,28 +182,40 @@ def gen_pair_graphs(df, cols, title, xticks=None, figsize=(12,15), xlabel='Time 
     
     # +MC #
     ax = axs.pop(0)
+    labels = []
     for i,col in enumerate(df[cols_mc_plus]):
-        sns.lineplot('Time', col, data=df, ax=ax, color=colors[i], marker=markers[i], label=col, **line_kwargs)
-        
-        # line labels
-        # x = random.choice(df['Time'][2:-2])
-        # y = df[df['Time']==x][col].mean()
-        # ax.text(x, y, s=col)
-    ax.set_title(f'{title} {{+MC}}', **title_kwargs)
-    ax.legend(**legend_kwargs)
+        labels += [col.replace(' +MC','').replace('d_','Δ')]
+        sns.lineplot('Time', col, data=df, ax=ax, color=colors[i], marker=markers[i], **line_kwargs)
+
+    if title_postfix is not None:
+        ax.set_title(f'{title} {{+MC {title_postfix}}}'.strip(), **title_kwargs)
+        labels = [ l.replace(f' {title_postfix}','') for l in labels ]
+    else:
+        ax.set_title(f'{title} {{+MC}}'.strip(), **title_kwargs)
+
+    if legend_labels is not None:
+        ax.legend(legend_labels, **legend_kwargs)
+    else:
+        ax.legend(labels, **legend_kwargs)
+
 
     # -MC #
     ax = axs.pop(0)
-    lines = []
+    labels = []
     for i,col in enumerate(df[cols_mc_minus]):
-        sns.lineplot('Time', col, data=df, ax=ax, color=colors[i], marker=markers[i], label=col, **line_kwargs)
+        labels += [col.replace(' -MC','').replace('d_','Δ')]
+        sns.lineplot('Time', col, data=df, ax=ax, color=colors[i], marker=markers[i], **line_kwargs)
         
-        # line labels
-        # x = random.choice(df['Time'][2:-2])
-        # y = df[df['Time']==x][col].mean()
-        # ax.text(x, y, s=col)
-    ax.set_title(f'{title} {{-MC}}', **title_kwargs)
-    ax.legend(**legend_kwargs)
+    if title_postfix is not None:
+        ax.set_title(f'{title} {{-MC {title_postfix}}}'.strip(), **title_kwargs)
+        labels = [ l.replace(f' {title_postfix}','') for l in labels ]
+    else:
+        ax.set_title(f'{title} {{-MC}}'.strip(), **title_kwargs)
+    
+    if legend_labels is not None:
+        ax.legend(legend_labels, **legend_kwargs)
+    else:
+        ax.legend(labels, **legend_kwargs)
 
     plt.tight_layout()
     return (fig,axs)
