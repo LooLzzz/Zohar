@@ -6,12 +6,13 @@ from analysis import analyse_file, gen_pair_graphs
 ##     GROUP 1     ##
 #####################
 
-# deg = 30
-deg = 37
-rept = 3
+deg = 30
+# deg = 37
+rept = 1
+time_in_oven = 12
 csv_filename = f'{deg}deg_{rept}_repeat'
 groups_filename = 'group1'
-output_folder = 'lysis_curve_3_repeats/v4'
+output_folder = 'lysis_curve_1_repeats'
 
 df = analyse_file(
     opticalDense_path = f'./csv/{csv_filename}.csv',
@@ -24,33 +25,40 @@ figs = []
 ## WT ##
 title = f'Lysis Curve - {deg}°C\nWT'
 cols = [ c for c in df.columns if 'WT' in c ]
-fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 figs += [fig]
 ## WT ##
 
 wt_cols = [ c for c in df.columns if 'WT' in c and 'OE' not in c ]
 wt_oe_cols = [ c for c in df.columns if 'WT' in c and 'OE' in c ]
 
-## Cured ##
+## Cured  ##
 title = f'Lysis Curve - {deg}°C\nCured'
-cols = wt_oe_cols + [ c for c in df.columns if 'Cured' in c and 'Zaga' not in c ]
-fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
+cols = wt_oe_cols + [ c for c in df.columns if 'Cured' in c and 'OE' not in c ]
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 figs += [fig]
 ## Cured ##
-
-## zaga ##
-title = f'Lysis Curve - {deg}°C\nCured ΔZaga'
-cols = wt_oe_cols + [ c for c in df.columns if 'Zaga' in c ]
-fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
-figs += [fig]
-## zaga ##
 
 ## struc ##
 title = f'Lysis Curve - {deg}°C\nΔStruc'
 cols = wt_oe_cols + [ c for c in df.columns if 'Struc' in c ]
-fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 figs += [fig]
 ## struc ##
+
+## Δ55-6 ##
+title = f'Lysis Curve - {deg}°C\nΔ55-6'
+cols = wt_oe_cols + [ c for c in df.columns if '55-6' in c and 'OE' not in c ]
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
+figs += [fig]
+## Δ55-6 ##
+
+## Δ55-6 OE ##
+title = f'Lysis Curve - {deg}°C\nΔ55-6 OE'
+cols = wt_oe_cols + [ c for c in df.columns if '55-6' in c and 'OE' in c ]
+fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
+figs += [fig]
+## Δ55-6 OE ##
 
 
 # save
