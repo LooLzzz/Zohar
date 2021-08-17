@@ -8,7 +8,7 @@ from analysis import analyse_file, gen_pair_graphs
 
 deg = 30
 # deg = 37
-rept = 1
+rept = 2
 time_in_oven = 12
 csv_filename = f'{deg}deg_{rept}_repeat'
 groups_filename = 'group1'
