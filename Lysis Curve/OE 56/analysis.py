@@ -26,15 +26,14 @@ def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=Tr
 
     # triplicates dataframe #
     triplicates_df = pd.read_csv(triplicates_path)
-    if blanks != []:
-        if blanks is None and 'blanks' in triplicates_df:
+    if not blanks and 'blanks' not in triplicates_df:
+        blanks = []
+        blanks_means = 0
+    else:
+        if 'blanks' in triplicates_df:
             blanks = triplicates_df['blanks'].dropna()
             triplicates_df = triplicates_df.drop(columns=['blanks'])
-        if blanks is None:
-            raise ValueError('`blanks` is None')
         blanks_means = opticalDense_df[blanks].values.mean(axis=1)#.repeat(3)
-    else:
-        blanks_means = 0
 
     res = pd.DataFrame(opticalDense_df['Time'].repeat(3)).reset_index(drop=True)
 
