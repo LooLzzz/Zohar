@@ -8,11 +8,11 @@ from analysis import analyse_file, gen_pair_graphs
 
 deg = 30
 # deg = 37
-rept = 2
+rept = 4
 time_in_oven = 12
 csv_filename = f'{deg}deg_{rept}_repeat'
 groups_filename = 'group1'
-output_folder = f'lysis_curve_3_repeats'
+output_folder = f'lysis_curve_4_repeats'
 
 df = analyse_file(
     opticalDense_path = f'./csv/{csv_filename}.csv',
