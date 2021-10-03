@@ -32,37 +32,37 @@ figs[title[1]] = fig
 
 wt_cols = [ c for c in df.columns if 'WT' in c ]
 
-## OE LmaC ##
-title = f'Lysis Curve - {deg}°C\nOE LmaC'
-cols = wt_cols + [ c for c in df.columns if 'OE LmaC' in c ]
+## OE lmaC ##
+title = f'Lysis Curve - {deg}°C\nOE lmaC'
+cols = wt_cols + [ c for c in df.columns if 'OE lmaC' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 title = title.split('\n')
 figs[title[1]] = fig
-## OE LmaC ##
+## OE lmaC ##
 
-## OE LmaD+C ##
-title = f'Lysis Curve - {deg}°C\nOE LmaD+C'
-cols = wt_cols + [ c for c in df.columns if 'OE LmaD+C' in c ]
+## OE lmaD+C ##
+title = f'Lysis Curve - {deg}°C\nOE lmaD+C'
+cols = wt_cols + [ c for c in df.columns if 'OE lmaD+C' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 title = title.split('\n')
 figs[title[1]] = fig
-## OE LmaD+C ##
+## OE lmaD+C ##
 
-## d_LmaC ##
-title = f'Lysis Curve - {deg}°C\nΔLmaC'
-cols = wt_cols + [ c for c in df.columns if 'd_LmaC' in c ]
+## d_lmaC ##
+title = f'Lysis Curve - {deg}°C\nΔlmaC'
+cols = wt_cols + [ c for c in df.columns if 'd_lmaC' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 title = title.split('\n')
 figs[title[1]] = fig
-## d_LmaC ##
+## d_lmaC ##
 
-## d_LmaD ##
-title = f'Lysis Curve - {deg}°C\nΔLmaD'
-cols = wt_cols + [ c for c in df.columns if 'd_LmaD' in c ]
+## d_lmaD ##
+title = f'Lysis Curve - {deg}°C\nΔlmaD'
+cols = wt_cols + [ c for c in df.columns if 'd_lmaD' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
 title = title.split('\n')
 figs[title[1]] = fig
-## d_LmaD ##
+## d_lmaD ##
 
 
 
