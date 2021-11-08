@@ -6,8 +6,8 @@ from analysis import analyse_file, gen_pair_graphs
 ## GROUP 2 ##
 #############
 
-deg = 37
-# deg = 30
+# deg = 37
+deg = 30
 csv_filename = f'{deg}deg_with_AT'
 groups_filename = 'group2'
 output_folder = 'lysis_curve_at_only/v4'
@@ -74,6 +74,12 @@ fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
 ## Δ1555-56 ##
 
+## Δ1552-54 Δ2377-78 ##
+title = f'Lysis Curve - {deg}°C\nΔ1552-54 Δ2377-78'
+cols = wt_cols + [ c for c in df.columns if '1552-54' in c or '2377-78' in c ]
+fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
+figs += [fig]
+## Δ1552-54 Δ2377-78 ##
 
 # save
 for i,fig in enumerate(figs):
