@@ -140,7 +140,7 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
     sns.set_theme(**sns_theme_kwargs)
     sns.set_palette(**sns_palette_kwargs)
     
-    markers = ['o','d','v','s','p','*','^','X']
+    markers = ['o','d','v','s','p','*','^','X']*2
     colors = sns.color_palette()
     markevery_cases = [(0.1,0.1), (0.15,0.1), (0.125,0.15), (0.1,0.125)]
     # markevery_cases = [(0.1,0.1)]

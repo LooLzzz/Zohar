@@ -5,7 +5,7 @@ from analysis import analyse_file, gen_pair_graphs
 for rept in [1,2,3,4]:
     deg = 30
     # deg = 37
-    # rept = 1
+    # rept = 2
     time_in_oven = 12
     csv_filename = f'{deg}deg_{rept}_repeat'
     groups_filename = 'group1'
@@ -41,7 +41,7 @@ for rept in [1,2,3,4]:
 
     ## Δ01555 ##
     title = f'Lysis Curve - {deg}°C\nΔ01555'
-    cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'd_01555' in c ]
+    cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'd_01555' in c or 'd_struc OE' in c ]
     fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
     title = title.split('\n')
     figs[title[1]] = fig
