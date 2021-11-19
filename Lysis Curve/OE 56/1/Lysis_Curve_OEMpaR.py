@@ -1,4 +1,4 @@
-import os
+import os, itertools
 from matplotlib import pyplot as plt
 from analysis import analyse_file, gen_pair_graphs
 
@@ -29,26 +29,26 @@ fig,axs = gen_pair_graphs(df, wt_cols, title)
 figs += [fig]
 ## WT ##
 
-## Cured ##
-title = f'Lysis Curve - {deg}°C\nCured'
-cols = wt_cols + [ c for c in df.columns if 'Cured' in c and 'Struc' not in c ]
+## cured ##
+title = f'Lysis Curve - {deg}°C\ncured'
+cols = wt_cols + [ c for c in df.columns if 'cured' in c and 'struc' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title)
 figs += [fig]
-## Cured ##
+## cured ##
 
-## ΔStruc ##
-title = f'Lysis Curve - {deg}°C\nΔStruc Compared to Δ1555-56'
-cols = wt_cols + [ c for c in df.columns if ('Struc' in c or 'd_1555-56' in c) and 'Cured' not in c ]
+## Δstruc ##
+title = f'Lysis Curve - {deg}°C\nΔstruc Compared to Δ01555-56'
+cols = wt_cols + [ c for c in df.columns if ('struc' in c or 'd_01555-56' in c) and 'cured' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title)
 figs += [fig]
-## ΔStruc ##
+## Δstruc ##
 
-## Cured ΔStruc ##
-title = f'Lysis Curve - {deg}°C\nCured ΔStruc'
-cols = wt_cols + [ c for c in df.columns if 'Cured d_Struc' in c ]
+## cured Δstruc ##
+title = f'Lysis Curve - {deg}°C\ncured Δstruc'
+cols = wt_cols + [ c for c in df.columns if 'cured d_struc' in c ]
 fig,axs = gen_pair_graphs(df, cols, title)
 figs += [fig]
-## Cured ΔStruc ##
+## cured Δstruc ##
 
 
 

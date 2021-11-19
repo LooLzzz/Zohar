@@ -6,8 +6,8 @@ from analysis import analyse_file, gen_pair_graphs
 ## GROUP 2 ##
 #############
 
-# deg = 37
-deg = 30
+deg = 37
+# deg = 30
 csv_filename = f'{deg}deg_with_AT'
 groups_filename = 'group2'
 output_folder = 'lysis_curve_at_only/v4'
@@ -25,61 +25,61 @@ fig,axs = gen_pair_graphs(df, wt_cols, title, '+AT', xticks=range(13))
 figs += [fig]
 ## WT ##
 
-## Cured ##
-title = f'Lysis Curve - {deg}°C\nCured'
-cols = wt_cols + [ c for c in df.columns if 'Cured' in c and 'Zaga' not in c ]
+## cured ##
+title = f'Lysis Curve - {deg}°C\ncured'
+cols = wt_cols + [ c for c in df.columns if 'cured' in c and 'zaga' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Cured ##
+## cured ##
 
-## Cured ΔZaga ##
-title = f'Lysis Curve - {deg}°C\nCured ΔZaga'
-cols = wt_cols + [ c for c in df.columns if 'Zaga' in c ]
+## cured Δzaga ##
+title = f'Lysis Curve - {deg}°C\ncured Δzaga'
+cols = wt_cols + [ c for c in df.columns if 'zaga' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Cured ΔZaga ##
+## cured Δzaga ##
 
-## ΔStruc ##
-title = f'Lysis Curve - {deg}°C\nΔStruc'
-cols = wt_cols + [ c for c in df.columns if 'Struc' in c ]
+## Δstruc ##
+title = f'Lysis Curve - {deg}°C\nΔstruc'
+cols = wt_cols + [ c for c in df.columns if 'struc' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## ΔStruc ##
+## Δstruc ##
 
-## Δ1552-54 ##
-title = f'Lysis Curve - {deg}°C\nΔ1552-54'
-cols = wt_cols + [ c for c in df.columns if '1552-54' in c and '2377-78' not in c ]
+## Δ01552-54 ##
+title = f'Lysis Curve - {deg}°C\nΔ01552-54'
+cols = wt_cols + [ c for c in df.columns if '01552-54' in c and '02377-78' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Δ1552-54 ##
+## Δ01552-54 ##
 
-## Δ2377-78 ##
-title = f'Lysis Curve - {deg}°C\nΔ2377-78'
-cols = wt_cols + [ c for c in df.columns if '1552-54' not in c and '2377-78' in c ]
+## Δ02377-78 ##
+title = f'Lysis Curve - {deg}°C\nΔ02377-78'
+cols = wt_cols + [ c for c in df.columns if '01552-54' not in c and '02377-78' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Δ2377-78 ##
+## Δ02377-78 ##
 
-## Δ1552-54 Δ2377-78 ##
-title = f'Lysis Curve - {deg}°C\nΔ1552-54 Δ2377-78'
-cols = wt_cols + [ c for c in df.columns if '1552-54' in c and '2377-78' in c ]
+## Δ01552-54 Δ02377-78 ##
+title = f'Lysis Curve - {deg}°C\nΔ01552-54 Δ02377-78'
+cols = wt_cols + [ c for c in df.columns if '01552-54' in c and '02377-78' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Δ1552-54 Δ2377-78 ##
+## Δ01552-54 Δ02377-78 ##
 
-## Δ1555-56 ##
-title = f'Lysis Curve - {deg}°C\nΔ1555-56'
-cols = [ c for c in df.columns if ('1555-56' in c or 'WT' in c) and 'OE' not in c ]
+## Δ01555-56 ##
+title = f'Lysis Curve - {deg}°C\nΔ01555-56'
+cols = [ c for c in df.columns if ('01555-56' in c or 'WT' in c) and 'OE' not in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Δ1555-56 ##
+## Δ01555-56 ##
 
-## Δ1552-54 Δ2377-78 ##
-title = f'Lysis Curve - {deg}°C\nΔ1552-54 Δ2377-78'
-cols = wt_cols + [ c for c in df.columns if '1552-54' in c or '2377-78' in c ]
+## Δ01552-54 Δ02377-78 ##
+title = f'Lysis Curve - {deg}°C\nΔ01552-54 Δ02377-78'
+cols = wt_cols + [ c for c in df.columns if '01552-54' in c or '02377-78' in c ]
 fig,axs = gen_pair_graphs(df, cols, title, '+AT', xticks=range(13))
 figs += [fig]
-## Δ1552-54 Δ2377-78 ##
+## Δ01552-54 Δ02377-78 ##
 
 # save
 for i,fig in enumerate(figs):

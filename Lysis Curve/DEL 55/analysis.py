@@ -70,7 +70,7 @@ def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=Tr
 
 
 
-def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_labels=None, xticks=None, figsize_h=((25,9.5)), figsize_v=(12,15), xlabel='Time (hours)', ylabel='Abs. OD600nm',
+def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_labels=None, xticks=None, figsize_h=((25,9.5)), figsize_v=(12,15), xlabel='Time (hours)', ylabel='OD 600nm',
                     alignment=1, line_kwargs={}, sns_theme_kwargs={}, sns_palette_kwargs={}, legend_kwargs={}, title_kwargs={}):
     def _update_dict(old, new):
         res = old.copy()
