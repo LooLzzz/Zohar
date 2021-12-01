@@ -2,7 +2,7 @@ import os
 from matplotlib import pyplot as plt
 from analysis import analyse_file, gen_pair_graphs
 
-for rept in [1,2]:
+for rept in [1,2,3,4]:
     deg = 30
     # deg = 37
     time_in_oven = 12
