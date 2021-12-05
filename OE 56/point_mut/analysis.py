@@ -145,6 +145,7 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
     markevery_cases = [(0.1,0.1), (0.15,0.1), (0.125,0.15), (0.1,0.125)]
     # markevery_cases = [(0.1,0.1)]
     mpl.rcParams['axes.prop_cycle'] = cycler(markevery=markevery_cases)
+    # mpl.rcParams["text.usetex"] = True
     # mpl.rcParams["font.family"] = 'fantasy'
     mpl.rcParams["font.family"] = 'TeX Gyre Heros'
     
@@ -193,9 +194,8 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
         ax.set_title(f'{title} {{+MC}}'.strip(), **title_kwargs)
 
     if legend_labels is not None:
-        ax.legend(legend_labels, **legend_kwargs)
-    else:
-        ax.legend(labels, **legend_kwargs)
+        labels = [col.replace(' +MC','').replace('\\\\','\\').replace('d_','Δ') for col in legend_labels if '+MC' in col]
+    ax.legend(labels, **legend_kwargs)
 
 
     # -MC #
@@ -212,9 +212,8 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
         ax.set_title(f'{title} {{-MC}}'.strip(), **title_kwargs)
     
     if legend_labels is not None:
-        ax.legend(legend_labels, **legend_kwargs)
-    else:
-        ax.legend(labels, **legend_kwargs)
+        labels = [col.replace(' -MC','').replace('\\\\','\\').replace('d_','Δ') for col in legend_labels if '-MC' in col]
+    ax.legend(labels, **legend_kwargs)
 
     plt.tight_layout()
     return (fig,axs)

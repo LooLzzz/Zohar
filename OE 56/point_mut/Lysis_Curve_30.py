@@ -2,6 +2,10 @@ import os
 from matplotlib import pyplot as plt
 from analysis import analyse_file, gen_pair_graphs
 
+def to_latex(cols):
+    return [r'$\mathrm{' + c.replace(' ', r'\ ') + '}$'
+            for c in cols]
+
 for rept in [1,2,3,4]:
     deg = 30
     # deg = 37
@@ -22,26 +26,29 @@ for rept in [1,2,3,4]:
     ## WT ##
     title = f'Lysis Curve - {deg}°C\nWT'
     cols = [ c for c in df.columns if 'WT' in c ]
-    fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
+    lbls = to_latex(cols)
+    fig,axs = gen_pair_graphs(df, cols, title, legend_labels=lbls, xticks=range(time_in_oven+1))
     title = title.split('\n')
     figs[title[1]] = fig
     ## WT ##
 
-    wt_cols      = [ c for c in df.columns if 'WT' in c and 'OE' not in c and 'PM' not in c ]
-    wt_oe56_cols = [ c for c in df.columns if 'WT' in c and 'OE' in c and 'PM' not in c ]
+    wt_cols      = [ c for c in df.columns if 'WT' in c and 'OE' not in c and 'Y163F' not in c ]
+    wt_oe56_cols = [ c for c in df.columns if 'WT' in c and 'OE' in c and 'Y163F' not in c ]
 
     ## cured PM ##
     title = f'Lysis Curve - {deg}°C\ncured'
-    cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'cured PM' in c ]
-    fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
+    cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'cured' in c and 'd_zaga' not in c ]
+    lbls = to_latex(cols)
+    fig,axs = gen_pair_graphs(df, cols, title, legend_labels=lbls, xticks=range(time_in_oven+1))
     title = title.split('\n')
     figs[title[1]] = fig
     ## cured PM ##
 
     ## cured Δzaga PM ##
     title = f'Lysis Curve - {deg}°C\ncured Δzaga'
-    cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'cured d_zaga PM' in c ]
-    fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
+    cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'cured d_zaga' in c ]
+    lbls = to_latex(cols)
+    fig,axs = gen_pair_graphs(df, cols, title, legend_labels=lbls, xticks=range(time_in_oven+1))
     title = title.split('\n')
     figs[title[1]] = fig
     ## cured Δzaga PM ##
@@ -49,7 +56,8 @@ for rept in [1,2,3,4]:
     ## Δstruc ##
     title = f'Lysis Curve - {deg}°C\nΔstruc'
     cols = wt_cols + wt_oe56_cols + [ c for c in df.columns if 'd_struc' in c ]
-    fig,axs = gen_pair_graphs(df, cols, title, xticks=range(time_in_oven+1))
+    lbls = to_latex(cols)
+    fig,axs = gen_pair_graphs(df, cols, title, legend_labels=lbls, xticks=range(time_in_oven+1))
     title = title.split('\n')
     figs[title[1]] = fig
     ## Δstruc ##
