@@ -1,5 +1,9 @@
 import os
+import sys
 from matplotlib import pyplot as plt
+from analysis import analyse_file, gen_pair_graphs
+
+sys.path.append('../../')
 from analysis import analyse_file, gen_pair_graphs
 
 #############

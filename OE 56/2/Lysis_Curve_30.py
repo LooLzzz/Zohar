@@ -1,6 +1,10 @@
+import sys
 import os
 from matplotlib import pyplot as plt
+
+sys.path.append('../../')
 from analysis import analyse_file, gen_pair_graphs
+
 
 for rept in [1,2,3,4]:
     deg = 30
@@ -54,9 +58,6 @@ for rept in [1,2,3,4]:
     title = title.split('\n')
     figs[title[1]] = fig
     ## cured Δstruc ##
-
-
-
 
     # save dict
     for title,fig in figs.items():

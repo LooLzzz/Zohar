@@ -1,5 +1,9 @@
-import os, itertools
+import os
+import sys
+import itertools
 from matplotlib import pyplot as plt
+
+sys.path.append('../../')
 from analysis import analyse_file, gen_pair_graphs
 
 #############

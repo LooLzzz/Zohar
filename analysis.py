@@ -7,6 +7,7 @@ import matplotlib as mpl
 import pandas as pd
 import numpy as np
 
+
 def strtime_to_floattime(str):
     '''
     converts strtime `h:m:s` to hours in float
@@ -15,6 +16,14 @@ def strtime_to_floattime(str):
     val = lst[0] + lst[1]/60 + lst[2]/(60**2)
     return val
 
+
+# def circular_list(lst: list):
+#     i = 0
+#     while True:
+#         if i == len(lst):
+#             i = 0
+#         yield lst[i]
+#         i += 1
 
 
 def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=True, drop_neg=False, drop_wells=[]):
@@ -95,10 +104,10 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
     )
     sns_palette_kwargs = _update_dict(
         {
-            'n_colors': 10,
-            # 'palette': 'gray',
-            # 'palette': 'binary',
+            'n_colors': 12,
+            # 'palette': 'bone',
             'palette': 'gray',
+            # 'palette': 'binary',
         },
         sns_palette_kwargs
     )
@@ -140,11 +149,12 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
     sns.set_theme(**sns_theme_kwargs)
     sns.set_palette(**sns_palette_kwargs)
     
-    markers = ['o','d','v','s','p','*','^','X']
-    colors = sns.color_palette()
+    markers = ['o','d','v','s','p','*','^','X'] * 2
+    colors = sns.color_palette() * 2
     markevery_cases = [(0.1,0.1), (0.15,0.1), (0.125,0.15), (0.1,0.125)]
     # markevery_cases = [(0.1,0.1)]
     mpl.rcParams['axes.prop_cycle'] = cycler(markevery=markevery_cases)
+    # mpl.rcParams["text.usetex"] = True
     # mpl.rcParams["font.family"] = 'fantasy'
     mpl.rcParams["font.family"] = 'TeX Gyre Heros'
     
@@ -193,9 +203,8 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
         ax.set_title(f'{title} {{+MC}}'.strip(), **title_kwargs)
 
     if legend_labels is not None:
-        ax.legend(legend_labels, **legend_kwargs)
-    else:
-        ax.legend(labels, **legend_kwargs)
+        labels = [col.replace(' +MC','').replace('\\\\','\\').replace('d_','Δ') for col in legend_labels if '+MC' in col]
+    ax.legend(labels, **legend_kwargs)
 
 
     # -MC #
@@ -212,9 +221,8 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
         ax.set_title(f'{title} {{-MC}}'.strip(), **title_kwargs)
     
     if legend_labels is not None:
-        ax.legend(legend_labels, **legend_kwargs)
-    else:
-        ax.legend(labels, **legend_kwargs)
+        labels = [col.replace(' -MC','').replace('\\\\','\\').replace('d_','Δ') for col in legend_labels if '-MC' in col]
+    ax.legend(labels, **legend_kwargs)
 
     plt.tight_layout()
     return (fig,axs)
