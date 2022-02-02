@@ -17,13 +17,11 @@ def strtime_to_floattime(str):
     return val
 
 
-# def circular_list(lst: list):
-#     i = 0
-#     while True:
-#         if i == len(lst):
-#             i = 0
-#         yield lst[i]
-#         i += 1
+class CircularList(list):
+    def __getitem__(self, slice):
+        if isinstance(slice, int) and slice > len(self)-1:
+            slice = slice % len(self)
+        return super().__getitem__(slice)
 
 
 def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=True, drop_neg=False, drop_wells=[]):
@@ -149,8 +147,8 @@ def gen_pair_graphs(df, cols, title, title_postfix=None, suptitle=None, legend_l
     sns.set_theme(**sns_theme_kwargs)
     sns.set_palette(**sns_palette_kwargs)
     
-    markers = ['o','d','v','s','p','*','^','X'] * 2
-    colors = sns.color_palette() * 2
+    markers = CircularList(['o','d','v','s','p','*','^','X'])
+    colors = CircularList(sns.color_palette())
     markevery_cases = [(0.1,0.1), (0.15,0.1), (0.125,0.15), (0.1,0.125)]
     # markevery_cases = [(0.1,0.1)]
     mpl.rcParams['axes.prop_cycle'] = cycler(markevery=markevery_cases)

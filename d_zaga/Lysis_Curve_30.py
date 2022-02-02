@@ -6,8 +6,7 @@ sys.path.append('../')
 from analysis import analyse_file, gen_pair_graphs
 
 
-# for rept in [1,2,3]:
-for rept in [1]:
+for rept in [1,2,3]:
     deg = 30
     csv_filename = f'{deg}deg_{rept}_repeat'
     groups_filename = 'group1'
@@ -18,13 +17,14 @@ for rept in [1]:
         triplicates_path  = f'./groups/{groups_filename}.csv',
         blanks            = ['A3', 'A9']
     )
-    figs = []
+    figs = {}
 
     ## WT ##
     title = f'Lysis Curve - {deg}°C\nWT'
     cols = [ c for c in df.columns if 'WT' in c ]
     fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
-    figs += [fig]
+    title = title.split('\n')
+    figs[title[1]] = fig
     ## WT ##
 
     wt_cols = [ c for c in df.columns if 'WT' in c and 'OE' not in c ]
@@ -34,21 +34,24 @@ for rept in [1]:
     title = f'Lysis Curve - {deg}°C\nΔzaga'
     cols = df.columns.tolist()
     fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
-    figs += [fig]
+    title = title.split('\n')
+    figs[title[1]] = fig
     ## all ##
     
     ## all (no -AT) ##
     title = f'Lysis Curve - {deg}°C\nΔzaga (no -AT)'
     cols = [ c for c in df.columns if '-AT' not in c ]
     fig,axs = gen_pair_graphs(df, cols, title, xticks=range(13))
-    figs += [fig]
+    title = title.split('\n')
+    figs[title[1]] = fig
     ## all (no -AT) ##
 
-    # save
-    for i,fig in enumerate(figs):
+    # save dict
+    for title,fig in figs.items():
         path = f'./figs/{output_folder}/{csv_filename}'
         os.makedirs(path, exist_ok=True)
-        fig.savefig(f'{path}/{i}.png')
+        print(f'saving {title} figure..')
+        fig.savefig(f'{path}/{title}.png')
 
     # show
     # plt.show()
