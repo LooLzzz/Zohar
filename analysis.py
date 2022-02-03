@@ -26,7 +26,7 @@ class CircularList(list):
 
 def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=True, drop_neg=False, drop_wells=[]):
     # od dataframe #
-    opticalDense_df = pd.read_csv(opticalDense_path)
+    opticalDense_df: pd.DataFrame = pd.read_csv(opticalDense_path)
     
     if parse_time:
         opticalDense_df['Time'] = opticalDense_df['Time'].apply(strtime_to_floattime)
@@ -69,7 +69,7 @@ def analyse_file(opticalDense_path, triplicates_path, blanks=None, parse_time=Tr
             else:
                 od_values[well] -= blanks_means
         
-        od_values = od_values.values.flatten().astype('float64').tolist()
+        od_values = od_values.clip(lower=0).values.flatten().astype('float64').tolist()
         res[tri_name] = np.nan
         res[tri_name][:len(od_values)] = od_values
         # res[tri_name] = od_values

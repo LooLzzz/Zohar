@@ -1,6 +1,10 @@
+import sys
 import os
 from matplotlib import pyplot as plt
+
+sys.path.append('../')
 from analysis import analyse_file, gen_pair_graphs
+
 
 #####################
 ##     GROUP 1     ##
@@ -9,7 +13,6 @@ from analysis import analyse_file, gen_pair_graphs
 for rept in [1,2,3,4]:
     deg = 30
     # deg = 37
-    # rept = 4
     time_in_oven = 12
     csv_filename = f'{deg}deg_{rept}_repeat'
     groups_filename = 'group1'
@@ -64,7 +67,6 @@ for rept in [1,2,3,4]:
     title = title.split('\n')
     figs[title[1]] = fig
     ## d_lmaD ##
-
 
 
     # save dict
