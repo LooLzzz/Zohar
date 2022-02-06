@@ -1,6 +1,6 @@
 from cycler import cycler
 import seaborn as sns
-from typing import Iterable
+from typing import Iterable, List, Tuple
 from matplotlib.ticker import FormatStrFormatter
 from matplotlib import pyplot as plt
 import matplotlib as mpl
@@ -22,10 +22,10 @@ class CircularList(list):
 
 
 def analyse_file(opticalDense_path: str, triplicates_path: str,
-                 blanks: list[str] = None,
+                 blanks: List[str] = None,
                  parse_time: bool = True,
                  drop_neg: bool = False,
-                 drop_wells: list[str] = []) -> pd.DataFrame:
+                 drop_wells: List[str] = []) -> pd.DataFrame:
     # od dataframe #
     opticalDense_df: pd.DataFrame = pd.read_csv(opticalDense_path)
 
@@ -70,20 +70,20 @@ def analyse_file(opticalDense_path: str, triplicates_path: str,
             else:
                 od_values[well] -= blanks_means
 
-        od_values = od_values.clip(lower=0).values.flatten().astype('float64').tolist()
+        od_values = od_values.astype('float64').clip(lower=0).values.flatten().tolist()
         res[tri_name] = np.nan
         res[tri_name][:len(od_values)] = od_values
         # res[tri_name] = od_values
     return res
 
 
-def gen_pair_graphs(df: pd.DataFrame, cols: list[str], title: str,
-                    title_postfix: None | str = None, suptitle: None | str = None,
-                    legend_labels: None | list[str] = None, xticks: Iterable = None,
-                    figsize_h: tuple[float, float] = ((25, 9.5)), figsize_v: tuple[float, float] = (12, 15),
+def gen_pair_graphs(df: pd.DataFrame, cols: List[str], title: str,
+                    title_postfix: str = None, suptitle: str = None,
+                    legend_labels: List[str] = None, xticks: Iterable = None,
+                    figsize_h: Tuple[float, float] = ((25, 9.5)), figsize_v: Tuple[float, float] = (12, 15),
                     xlabel: str = 'Time (hours)', ylabel: str = 'OD 600nm', alignment: float = 1,
                     line_kwargs: dict = {}, sns_theme_kwargs: dict = {}, sns_palette_kwargs: dict = {},
-                    legend_kwargs: dict = {}, title_kwargs: dict = {}) -> tuple[plt.Figure, plt.Axes]:
+                    legend_kwargs: dict = {}, title_kwargs: dict = {}) -> Tuple[plt.Figure, plt.Axes]:
     def _update_dict(old: dict, new: dict):
         res = old.copy()
         res.update(new)
